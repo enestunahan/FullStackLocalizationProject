@@ -5,21 +5,25 @@ import InfoIcon from '@mui/icons-material/Info';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import logo from '../../assets/images/logo.png'
-import './Navbar.css'
+import { useTranslation } from 'react-i18next';
+import logo from '../../assets/images/logo.png';
+import './Navbar.css';
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState('EN');
 
   const handleLanguageChange = () => {
-    setLanguage((prev) => (prev === 'EN' ? 'TR' : 'EN'));
+    const newLang = language === 'EN' ? 'TR' : 'EN';
+    setLanguage(newLang);
+    i18n.changeLanguage(newLang.toLowerCase());
   };
 
   return (
     <div className='navbar'>
         
         <div className='logo'>
-            <img src= {logo} alt="" />
+            <img src={logo} alt="Logo" />
         </div>
 
         <div className='menu'>
@@ -27,25 +31,25 @@ const Navbar = () => {
                <li>
                     <a href="#"> 
                         <div className='icon'> <HomeIcon fontSize='large'/>  </div>  
-                        <div className='iconAddress'> Ana Sayfa  </div>        
+                        <div className='iconAddress'> {t('home')} </div>        
                     </a>
                 </li>
                 <li>
                     <a href="#"> 
                         <div className='icon'> <InfoIcon fontSize='large'/>  </div>  
-                        <div className='iconAddress'> Hakkımızda  </div>        
+                        <div className='iconAddress'> {t('about')} </div>        
                     </a>
                 </li>
                 <li>
                     <a href="#"> 
                         <div className='icon'> <PrecisionManufacturingIcon fontSize='large'/>  </div>  
-                        <div className='iconAddress'> Projelerimiz </div>        
+                        <div className='iconAddress'> {t('projects')} </div>        
                     </a>
                 </li>
                 <li>
                     <a href="#"> 
                         <div className='icon'> <ContactMailIcon fontSize='large'/>   </div>  
-                        <div className='iconAddress'> Bize Ulaşın  </div>        
+                        <div className='iconAddress'> {t('contact')} </div>        
                     </a>
                 </li>
             </ul>
@@ -59,7 +63,7 @@ const Navbar = () => {
                 </div>  
                 
                 <div className='localization'>
-                    <p>En</p>  
+                    <p>EN</p>  
                    <Switch
                         checked={language === 'TR'}
                         onChange={handleLanguageChange}
